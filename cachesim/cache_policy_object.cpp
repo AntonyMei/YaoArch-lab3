@@ -2,6 +2,8 @@
 #include "cache_organize_component.h"
 #include <iostream>
 
+#define __DEBUG__
+
 using namespace std;
 
 namespace Ripes {
@@ -126,22 +128,48 @@ void LruLipPolicy::locateEvictionWay(std::pair<unsigned, CacheWay*>& ew,
 void LruLipPolicy::updateCacheSetReplFields(CacheSet &cacheSet, unsigned int setIdx,
                                                unsigned int wayIdx, bool isHit) {
     // ---------------------Part 2. TODO ------------------------------
+    
+    // Get counter of current entry
     const unsigned preLRU = cacheSet[wayIdx].counter;
+    
     // If this is an insertion, apply LIP
     if (preLRU == (unsigned)-1) {
-        // Calculate current max counter and use it to ensure consistency of counters
-        unsigned cur_max_counter = 0;
+
+        #ifdef __DEBUG__
+
+        cout << "setIdx = " << setIdx << endl;
+
+        #endif // __DEBUG__
+        
+        // Calculate current max counter and use it to ensure consistency of
+        // counters. Apply to new entry counter and exit.
+        cacheSet[wayIdx].counter = 0;
         for (auto& idx_way : cacheSet) {
-            if (idx_way.second.valid && idx_way.second.counter > cur_max_counter 
-                && idx_way.second.counter != (unsigned)-1) {
-                cur_max_counter = idx_way.second.counter;
+
+            if (idx_way.second.valid && idx_way.second.counter >= cacheSet[wayIdx].counter
+                && idx_way.first != wayIdx) {
+                cacheSet[wayIdx].counter = idx_way.second.counter + 1;
             }
+
+            #ifdef __DEBUG__
+
+            cout << "idx_way counter = " << idx_way.second.counter << ", valid = "
+                << idx_way.second.valid << endl;
+
+            #endif // __DEBUG__
+
         }
-        // Apply to new entry counter and exit
-        cacheSet[wayIdx].counter = cur_max_counter + 1;
+
+        #ifdef __DEBUG__
+
+        cout << "newly insert counter = " << cacheSet[wayIdx].counter << endl;
+
+        #endif // __DEBUG__
+
         return;
     }
-    // O.w. this is a normal access, apply LRU
+    
+    // If this is a normal access, apply LRU
     for (auto& idx_way : cacheSet) {
         if (idx_way.second.valid && idx_way.second.counter < preLRU) {
             idx_way.second.counter++;
