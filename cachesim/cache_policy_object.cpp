@@ -9,7 +9,6 @@ using namespace std;
 
 // DIP parameters
 constexpr unsigned RESETTHRESHOLD = 100 * 1000;
-constexpr unsigned PREDICTIONSTART = 100;
 enum class InsertPolicy { MIP = 0, LIP = 1 };
 
 // DIP used counters
@@ -268,16 +267,12 @@ void DipPolicy::updateCacheSetReplFields(CacheSet &cacheSet, unsigned int setIdx
     }
 
     // Calculate hitrate and update policy
-    // In order for a more smooth performance after reset, we don't
-    // change prediction until we have enough samples
-    if (total_mem_access >= PREDICTIONSTART) {
-        float mip_hit_rate = (mip_hit + mip_miss) > 0 ?
-            static_cast<float>(mip_hit) / mip_hit + mip_miss : 0;
-        float lip_hit_rate = (lip_hit + lip_miss) > 0 ?
-            static_cast<float>(lip_hit) / lip_hit + lip_miss : 0;
-        insert_policy = (mip_hit_rate >= lip_hit_rate ?
-            InsertPolicy::MIP : InsertPolicy::LIP);
-    }
+    float mip_hit_rate = (mip_hit + mip_miss) > 0 ?
+        static_cast<float>(mip_hit) / mip_hit + mip_miss : 0;
+    float lip_hit_rate = (lip_hit + lip_miss) > 0 ?
+        static_cast<float>(lip_hit) / lip_hit + lip_miss : 0;
+    insert_policy = (mip_hit_rate >= lip_hit_rate ?
+        InsertPolicy::MIP : InsertPolicy::LIP);
 
     // Reset counter
     if (total_mem_access == RESETTHRESHOLD) {
