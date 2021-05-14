@@ -13,7 +13,7 @@
 #include <assert.h>
 #include <iostream>
 
-#define __SIMDEBUG__
+// #define __SIMDEBUG__
 
 using namespace std;
 
@@ -21,15 +21,14 @@ using namespace std;
 extern const unsigned RRIBITWIDTH;
 // Parameters for universal hash function in skew associative cache
 const unsigned UPRIME = 4294967291u;
+const unsigned addr2set[] = { 126, 913, 632, 97 };
 
 // Universal hash function
 unsigned AddrWay2Set(unsigned addr, unsigned way, Ripes::CacheSim& cache) {
 
-    //return cache.getSetIdx(addr);
-    // h_ab = ((ak + b) mod p) mod m
-     unsigned a = 1;
-     unsigned b = 4 * way;
-     return ((static_cast<unsigned long>(addr) * a + b) % UPRIME) % cache.getSets();
+    // return (cache.getSetIdx(addr) + 3) % cache.getSets();
+    //h_ab = (a * k + b) mod m
+    return (static_cast<unsigned long>(cache.getSetIdx(addr)) + addr2set[way]) % cache.getSets();
 
 }
 
@@ -259,6 +258,12 @@ void CacheSim::analyzeCacheAccessSkewedCache(CacheTransaction& transaction) {
         }   
 
     }
+
+#ifdef __SIMDEBUG__
+
+    cout << "Is hit: " << transaction.isHit << endl;
+
+#endif // __SIMDEBUG__
 
     return;
 }
