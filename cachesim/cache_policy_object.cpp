@@ -21,7 +21,7 @@ unsigned lip_miss = 0;
 unsigned lip_hit = 0;
 
 // RRIP parameters
-constexpr unsigned RRIBITWIDTH = 3;
+extern constexpr unsigned RRIBITWIDTH = 3;
 constexpr unsigned DISTANTRRI = 7;
 constexpr unsigned LONGRRI = 6;
 

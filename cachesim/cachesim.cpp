@@ -9,6 +9,8 @@
 #include <random>
 #include <utility>
 
+extern const unsigned RRIBITWIDTH;
+
 
 namespace Ripes {
 
@@ -251,9 +253,30 @@ CacheSim::CacheSize CacheSim::getCacheSize() const {
         size.bits += componentBits;
     }
 
-    if (m_replPolicy == ReplPolicy::LRU) {
+    // Capacity calculation for LRU / LRU_LIP control overhead
+    if (m_replPolicy == ReplPolicy::LRU || m_replPolicy == ReplPolicy::LRU_LIP) {
         // counter bits
         componentBits = getWaysBits() * entries;
+        size.components.push_back("Counter bits: " + QString::number(componentBits));
+        size.bits += componentBits;
+    }
+
+    // Capacity calculation for DIP control overhead
+    if (m_replPolicy == ReplPolicy::DIP) {
+        // cacheway counter bits
+        componentBits = getWaysBits() * entries;
+        size.components.push_back("Counter bits: " + QString::number(componentBits));
+        size.bits += componentBits;
+        // control bits
+        componentBits = 32 * 5 + 1;
+        size.components.push_back("Control bits: " + QString::number(componentBits));
+        size.bits += componentBits;
+    }
+
+    // Capacity calculation for RRIP control overhead
+    if (m_replPolicy == ReplPolicy::RRIP) {
+        // counter bits
+        componentBits = RRIBITWIDTH * entries;
         size.components.push_back("Counter bits: " + QString::number(componentBits));
         size.bits += componentBits;
     }
