@@ -4,7 +4,7 @@
 #define EDGE_NUMBER 50
 #define MAX_ITER 10
 
-char* read_file = "/home/arch_stu2019011041/HW/lab3/1.txt";
+char* read_file = "/home/arch_stu2019011041/HW/1.txt";
 
 int main() {
     FILE *fp = NULL;

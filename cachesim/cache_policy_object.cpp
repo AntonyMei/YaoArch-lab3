@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <cmath>
 
-#define __DEBUG__
+// #define __DEBUG__
 
 using namespace std;
 
@@ -59,7 +59,7 @@ void LruPolicy::locateEvictionWay(std::pair<unsigned, CacheWay*>& ew,
         ew.first = 0;
         ew.second = &cacheSet[ew.first];
     } else {
-        // Check whether each entry is nullptr
+        // Initial every entry if not initialized
         for (int i = 0; i < ways; i++) {
             cacheSet[i];
         }
@@ -119,7 +119,7 @@ void LruLipPolicy::locateEvictionWay(std::pair<unsigned, CacheWay*>& ew,
         ew.second = &cacheSet[ew.first];
     }
     else {
-        // Check whether each entry is nullptr
+        // Initial every entry if not initialized
         for (int i = 0; i < ways; i++) {
             cacheSet[i];
         }
@@ -225,7 +225,7 @@ void DipPolicy::locateEvictionWay(std::pair<unsigned, CacheWay*>& ew,
         ew.second = &cacheSet[ew.first];
     }
     else {
-        // Check whether each entry is nullptr
+        // Initial every entry if not initialized
         for (int i = 0; i < ways; i++) {
             cacheSet[i];
         }
@@ -400,7 +400,7 @@ void RripPolicy::locateEvictionWay(std::pair<unsigned, CacheWay*>& ew,
     }
     else {
 
-        // Check whether each entry is nullptr
+        // Initial every entry if not initialized
         for (int i = 0; i < ways; i++) {
             cacheSet[i];
         }

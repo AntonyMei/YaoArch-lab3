@@ -8,9 +8,29 @@
 #include <QThread>
 #include <random>
 #include <utility>
+#include <cmath>
+#include <vector>
+#include <assert.h>
+#include <iostream>
 
+#define __SIMDEBUG__
+
+using namespace std;
+
+// Parameters for cache size calculation
 extern const unsigned RRIBITWIDTH;
+// Parameters for universal hash function in skew associative cache
+const unsigned UPRIME = 4294967291u;
 
+// Universal hash function
+unsigned AddrWay2Set(unsigned addr, unsigned way, Ripes::CacheSim& cache) {
+
+    // h_ab = ((ak + b) mod p) mod m
+    unsigned a = 3 * way + 1;
+    unsigned b = 7 * way + 1;
+    return ((static_cast<unsigned long>(addr) * a + b) % UPRIME) % cache.getSets();
+
+}
 
 namespace Ripes {
 
@@ -131,6 +151,112 @@ void CacheSim::analyzeCacheAccessSkewedCache(CacheTransaction& transaction) {
     }
     // ---------------------Part 3. TODO ------------------------------
     // Implement the skewed-associative cache
+
+    // Analyze block id
+    transaction.index.block = getBlockIdx(transaction.address);
+    
+    // Get possible locations for this address
+    // locations: set, way
+    unsigned way_cnt = this->getWays();
+    unsigned set_cnt = this->getSets();
+    vector<pair<unsigned, unsigned>> locations;
+    for (unsigned way_id = 0; way_id < way_cnt; way_id++) {
+        locations.push_back(pair<unsigned, unsigned>
+            (AddrWay2Set(transaction.address, way_id, *this), way_id));
+    }
+
+#ifdef __SIMDEBUG__
+
+    cout << endl;
+    cout << "Address: " << transaction.address << endl;
+    for (auto location : locations) {
+        cout << "Possible location: set " << location.first << ", way: "
+            << location.second << endl;
+    }
+
+#endif // __SIMDEBUG__
+
+    // CASE1: cache hit
+    transaction.isHit = false;
+    for (auto location : locations) {    
+
+        // Lazy initialization of corresponding set
+        assert(location.first < set_cnt);
+        for (int i = 0; i < way_cnt; i++) {
+            // NOTE: DO NOT use any map.at() when fetching set
+            // That won't initialize entries.
+            m_cacheSets[location.first][i];
+        }
+
+        // Extract way from corresponding set
+        const auto& way = m_cacheSets.at(location.first).at(location.second);
+
+        // Check if it is a hit
+        if ((way.tag == getTag(transaction.address)) && way.valid) {
+            transaction.index.set = location.first;
+            transaction.index.way = location.second;
+            transaction.isHit = true;
+
+#ifdef __SIMDEBUG__
+
+            cout << "Hit at: set " << location.first << ", way "
+                << location.second << endl;
+
+#endif // __SIMDEBUG__
+
+            break;
+        }
+
+    }
+
+    // CASE2: cache miss
+    if (!transaction.isHit) {
+
+        // CASE2.1: cache not fully utilized
+        bool exist_invalid_slot = false;
+        for (auto location : locations) {
+            if (!m_cacheSets.at(location.first).at(location.second).valid) {
+                transaction.index.set = location.first;
+                transaction.index.way = location.second;
+                exist_invalid_slot = true;
+
+#ifdef __SIMDEBUG__
+
+                cout << "Miss and fill in at: set " << location.first << ", way "
+                    << location.second << endl;
+
+#endif // __SIMDEBUG__
+
+                break;
+            }
+        }
+
+        // CASE2.2: cache full, need eviction
+        if (!exist_invalid_slot) {
+
+            // Select the entry (set, way) with largest counter
+            // The last one if multiple max elements
+            unsigned max_counter = 0;
+            for (auto location : locations) {
+                const auto& way = m_cacheSets.at(location.first).at(location.second);
+                if (way.counter >= max_counter) {
+                    max_counter = way.counter;
+                    transaction.index.set = location.first;
+                    transaction.index.way = location.second;
+                }
+            }
+
+#ifdef __SIMDEBUG__
+
+            cout << "Miss and evict: set " << transaction.index.set << ", way "
+                << transaction.index.way << endl;
+
+#endif // __SIMDEBUG__
+
+        }   
+
+    }
+
     return;
 }
 
@@ -232,6 +358,7 @@ unsigned CacheSim::getSetIdx(const uint32_t address) const {
     return maskedAddress;
 }
 
+// Modified
 CacheSim::CacheSize CacheSim::getCacheSize() const {
     
     // --------------------- TODO ------------------------------
