@@ -25,10 +25,11 @@ const unsigned UPRIME = 4294967291u;
 // Universal hash function
 unsigned AddrWay2Set(unsigned addr, unsigned way, Ripes::CacheSim& cache) {
 
+    //return cache.getSetIdx(addr);
     // h_ab = ((ak + b) mod p) mod m
-    unsigned a = 3 * way + 1;
-    unsigned b = 7 * way + 1;
-    return ((static_cast<unsigned long>(addr) * a + b) % UPRIME) % cache.getSets();
+     unsigned a = 1;
+     unsigned b = 4 * way;
+     return ((static_cast<unsigned long>(addr) * a + b) % UPRIME) % cache.getSets();
 
 }
 
@@ -119,7 +120,9 @@ CacheWay CacheSim::evictAndUpdate(CacheTransaction& transaction) {
     // Set required values in way, reflecting the newly loaded address
     wayPtr->valid = true;
     wayPtr->dirty = false;
-    wayPtr->tag = getTag(transaction.address);
+    // Modified
+    //wayPtr->tag = getTag(transaction.address);
+    wayPtr->tag = transaction.address;
     transaction.tagChanged = true;
 
     return eviction;
@@ -132,7 +135,7 @@ void CacheSim::analyzeCacheAccess(CacheTransaction& transaction) {
 
     if (m_cacheSets.count(transaction.index.set) != 0) {
         for (const auto& way : m_cacheSets.at(transaction.index.set)) {
-            if ((way.second.tag == getTag(transaction.address)) && way.second.valid) {
+            if ((way.second.tag == transaction.address) && way.second.valid) {
                 transaction.index.way = way.first;
                 transaction.isHit = true;
                 break;
@@ -192,7 +195,7 @@ void CacheSim::analyzeCacheAccessSkewedCache(CacheTransaction& transaction) {
         const auto& way = m_cacheSets.at(location.first).at(location.second);
 
         // Check if it is a hit
-        if ((way.tag == getTag(transaction.address)) && way.valid) {
+        if ((way.tag == transaction.address) && way.valid) {
             transaction.index.set = location.first;
             transaction.index.way = location.second;
             transaction.isHit = true;
