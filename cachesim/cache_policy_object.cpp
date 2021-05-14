@@ -2,8 +2,9 @@
 #include "cache_organize_component.h"
 #include <iostream>
 #include <assert.h>
+#include <cmath>
 
-// #define __DEBUG__
+#define __DEBUG__
 
 using namespace std;
 
@@ -18,6 +19,11 @@ unsigned mip_miss = 0;
 unsigned mip_hit = 0;
 unsigned lip_miss = 0;
 unsigned lip_hit = 0;
+
+// RRIP parameters
+constexpr unsigned RRIBITWIDTH = 3;
+constexpr unsigned DISTANTRRI = 7;
+constexpr unsigned LONGRRI = 6;
 
 namespace Ripes {
 
@@ -383,17 +389,97 @@ void DipPolicy::revertCacheSetReplFields(CacheSet &cacheSet,
 void RripPolicy::locateEvictionWay(std::pair<unsigned, CacheWay*>& ew,
                                         CacheSet& cacheSet, unsigned setIdx) {
     // ---------------------Part 2. TODO ------------------------------
+    // Use counter field to store RRI of each cacheway
+
+    if (ways == 1) {
+
+        // 1-way cache, only one choice
+        ew.first = 0;
+        ew.second = &cacheSet[ew.first];
+    
+    }
+    else {
+
+        // Check whether each entry is nullptr
+        for (int i = 0; i < ways; i++) {
+            cacheSet[i];
+        }
+
+        // If there is an invalid cache cacheSet, select that
+        for (auto& idx_way : cacheSet) {
+            if (!idx_way.second.valid) {
+                ew.first = idx_way.first;
+                ew.second = &idx_way.second;
+                break;
+            }
+        }
+
+        // Apply RRIP if all ways are occpuied
+        if (ew.second == nullptr) {
+
+#ifdef __DEBUG__
+
+            cout << "SetID = " << setIdx << endl;
+
+#endif // __DEBUG__
+
+            // Find entry with largest RRI
+            unsigned max_RRI = 0;
+            for (auto& idx_way : cacheSet) {
+                if (idx_way.second.counter >= max_RRI) {
+                    ew.first = idx_way.first;
+                    ew.second = &idx_way.second;
+                    max_RRI = idx_way.second.counter;
+                }
+
+#ifdef __DEBUG__
+
+                cout << "idx_way RRI = " << idx_way.second.counter << endl;
+
+#endif // __DEBUG__
+
+            }
+
+#ifdef __DEBUG__
+
+            cout << "Selected way = " << ew.first << endl;
+
+#endif // __DEBUG__
+
+            // Normalize to DISTANTRRI
+            if (max_RRI == DISTANTRRI) { return; }
+            else {
+                unsigned delta = DISTANTRRI - max_RRI;
+                assert(delta > 0);
+                for (auto& idx_way : cacheSet) {
+                    idx_way.second.counter += delta;
+                }
+            }
+
+        }
+
+    }
+
 }
 
 void RripPolicy::updateCacheSetReplFields(CacheSet &cacheSet, unsigned int setIdx,
                                                unsigned int wayIdx, bool isHit) {
     // ---------------------Part 2. TODO ------------------------------
+    // Use counter field to store RRI of each cacheway
+
+    // Update cacheway RRI upon access (hit) and insert
+    if (isHit) cacheSet[wayIdx].counter = 0;
+    else cacheSet[wayIdx].counter = LONGRRI;
+
 }
 
 void RripPolicy::revertCacheSetReplFields(CacheSet &cacheSet,
                                                const CacheWay &oldWay,
                                                unsigned int wayIdx) {
     // ---------------------Part 2. TODO (optional) ------------------------------
+    // Not implemented
+    assert(false);
+
 }
 
 }
