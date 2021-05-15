@@ -122,6 +122,21 @@ Results of different cache capacities and mapping schemes:
 In skewed-associative cache, we need separate hash functions for each way. Since we want blocks to be independently and uniformly mapped in each way, we choose a group of universal hash functions for mapping. Specifically, we choose $h_{ab}(k) = (a * k + b) \mod m$, in which $k$ is the block address, $m$ is the number of sets. In order for this group of hash functions to be universal, we need to choose $a$ and $b$ uniformly random for each way. Considering actual performance, we choose $a = 1$ for all ways, and $b$ be a random number for each way. Note that the tag function used for non-skewed cache is not suitable for skewed cache, since multiple blocks with the same tag may be mapped into the same way of the same set. Therefore, we use the whole address field as tag instead.
 
 \subsection{Results}
+\resizebox{\textwidth}{25mm}{
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Capacity and Mapping & Benchmark 1 Miss Rate & Benchmark 2 Miss Rate & Benchmark 1 Total Cycles & Benchmark 2 Total Cycles \\
+	\hline
+	16-entry 4-way associative &  &  &  &  \\
+	\hline
+	16-entry 4-way skewed-associative &  &  &  &  \\
+	\hline
+	32-entry 4-way associative &  &  &  &  \\
+	\hline
+	32-entry 4-way skewed-associative &  &  &  &  \\
+	\hline
+\end{tabular}
+}
 
 \section{Benchmarks}
 \subsection{Replacement Benchmarks}
