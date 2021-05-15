@@ -16,7 +16,7 @@ argument:
     # lw a[0], a[32], a[64], a[96], a[128]
     la t0, argument     # t0: array a
     li t1, 1000         # t1: iter
-    mv t2, zero            # t2: i
+    mv t2, zero         # t2: i
 loop:
     addi t2, t2, 1
     lw t3, 0(t0)
