@@ -1,3 +1,5 @@
+# This is a testcase in which LRU has better performance than LRULIP
+
 .data
 argument:
     # each row has 16 words (16 * 8)
@@ -15,11 +17,11 @@ argument:
     la t0, argument     # t0: array a
     li t1, 1000         # t1: iter
     mv t2, zero            # t2: i
-loop:
-    addi t2, t2, 1
     lw t3, 0(t0)
     lw t3, 32(t0)
     lw t3, 64(t0)
-    lw t3, 96(t0)
+loop:
+    addi t2, t2, 1
     lw t3, 128(t0)
+    lw t3, 96(t0)
     bne t2, t1, loop    # if i != iter then target
