@@ -1,0 +1,97 @@
+\documentclass[utf8]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{setspace}
+\usepackage{verbatim}
+
+\usepackage{algorithm}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\onehalfspacing
+
+\title{\bf\huge Lab3 Design Document}
+\author{Mei Yixuan 2019011041 Yao92}
+\date{\today}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} 
+
+\begin{document}
+\maketitle
+
+\section{Advanced Cache Replacement Policies}
+
+\subsection{LRU-LIP}
+In LRU-LIP, we set counter of the newly inserted block as the number of valid ways in the corresponding set minus one. This ensures that newly added blocks are in the least important position. Also, the counters are continuous (i.e. if we have 3 valids ways, their counters have value 0, 1 and 2). This nice property makes eviction and reversion much easier: we can simply use the same function as in LRU. The hardware control overhead of LRU-LIP is one counter each way, which is identical to LRU. Exact hardware cost is in the following figure.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{screenshot001}
+	\caption{LRU-LIP hardware cost}
+	\label{fig:screenshot001}
+\end{figure}
+
+
+\subsection{DIP}
+In DIP, we use the first set (SET0) as MIP sample and the second set (SET1) as LIP sample. In each memory access on non-dueling sets (i.e. sets other than SET0 and SET1), we update cache control fields according to current better replacement policy. We reset all counters every 100000 memory accesses to avoid potential risk of overflow. Thanks to the good property of LRU-LIP, eviction and reversion of DIP is also identical to LRU. Besides the counter in each way, DIP also needs five counters for data recording. Exact hardware cost is in the following figure.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{screenshot002}
+	\caption{DIP hardware cost}
+	\label{fig:screenshot002}
+\end{figure}
+\newpage
+
+\subsection{RRIP}
+In RRIP, we use counter field of each way to store its RRI. It has field width of 3 bits. Upon hit, we set RRI of corresponding entry as 0. Upon insertion, we set RRI of corresponding entry as long RRI (i.e. 6). When choosing a block for eviction when all ways are occupied, we choose the block with largest RRI and normalize all values to distant RRI (this is identical to adding one repeatedly). Exact hardware cost is in the following figure.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{screenshot003}
+	\caption{RRIP hardware cost}
+	\label{fig:screenshot003}
+\end{figure}
+
+\subsection{Results}
+\resizebox{\textwidth}{15mm}{
+\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		Design & Benchmark 1 Miss Rate & Benchmark 2 Miss Rate & Benchmark 1 Total Cycles & Benchmark 2 Total Cycles \\
+		\hline
+		No Cache &  &  &  &  \\
+		\hline
+		Random Replacement &  &  &  &  \\
+		\hline
+		LRU Replacement &  &  &  &  \\
+		\hline
+		LRU-LIP Replacement &  &  &  &  \\
+		\hline
+		DIP-Replacement &  &  &  &  \\
+		\hline
+		RRIP-Replacement &  &  &  &  \\
+		\hline
+\end{tabular}}
+
+
+\section{Skewed-Associative Cache}
+\subsection{Implementation}
+\subsection{Results}
+
+\section{Benchmarks}
+\subsection{Replacement Benchmarks}
+\subsection{Writehit Benchmarks}
+\subsection{Writemiss Benchmarks}
+
+\section{Ripes Bug Report}
+
+\section{Question Answering}
+
+%\begin{center}
+%\includegraphics[width=0.1\textwidth]{trump.jpg}
+%\end{center}
+
+
+\end{document}
