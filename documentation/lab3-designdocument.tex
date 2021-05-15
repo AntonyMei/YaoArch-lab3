@@ -56,12 +56,15 @@ In RRIP, we use counter field of each way to store its RRI. It has field width o
 \end{figure}
 
 \subsection{Results}
-\resizebox{\textwidth}{15mm}{
+Results of different replacement policies:
+\newline
+
+\resizebox{\textwidth}{20mm}{
 \begin{tabular}{|c|c|c|c|c|}
 		\hline
 		Design & Benchmark 1 Miss Rate & Benchmark 2 Miss Rate & Benchmark 1 Total Cycles & Benchmark 2 Total Cycles \\
 		\hline
-		No Cache & 100 &  & 2083191 &  \\
+		No Cache & 100 & 100 & 2083191 & 23508468 \\
 		\hline
 		Random Replacement & 16.47 &  & 1230758 &  \\
 		\hline
@@ -74,10 +77,50 @@ In RRIP, we use counter field of each way to store its RRI. It has field width o
 		RRIP-Replacement & 13.71 &  & 1202611 &  \\
 		\hline
 \end{tabular}}
+\newline
+
+\noindent
+Results of different cache capacities and mapping schemes:
+\newline
+
+\resizebox{\textwidth}{40mm}{
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Capacity and Mapping & Benchmark 1 Miss Rate & Benchmark 2 Miss Rate & Benchmark 1 Total Cycles & Benchmark 2 Total Cycles \\
+	\hline
+	16-entry direct-mapped &  &  &  &  \\
+	\hline
+	16-entry 4-way associative &  &  &  &  \\
+	\hline
+	16-entry 8-way associative &  &  &  &  \\
+	\hline
+	16-entry fully-associative &  &  &  &  \\
+	\hline
+	32-entry direct-mapped &  &  &  &  \\
+	\hline
+	32-entry 4-way associative &  &  &  &  \\
+	\hline
+	32-entry 8-way associative &  &  &  &  \\
+	\hline
+	32-entry fully-associative &  &  &  &  \\
+	\hline
+	64-entry direct-mapped &  &  &  &  \\
+	\hline
+	64-entry 4-way associative &  &  &  &  \\
+	\hline
+	64-entry 8-way associative &  &  &  &  \\
+	\hline
+	64-entry fully-associative &  &  &  &  \\
+	\hline
+\end{tabular}
+}
 
 
 \section{Skewed-Associative Cache}
+
 \subsection{Implementation}
+
+
 \subsection{Results}
 
 \section{Benchmarks}

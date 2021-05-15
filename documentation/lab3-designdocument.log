@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.16)  15 MAY 2021 21:57
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.16)  15 MAY 2021 22:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -285,15 +285,39 @@ File: screenshot002.png Graphic file (type bmp)
 ]
 File: screenshot003.png Graphic file (type bmp)
 <screenshot003.png>
- [2]
-(./lab3-designdocument.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--61
+
+ []
+
+
+Overfull \hbox (15.0178pt too wide) in paragraph at lines 62--81
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--85
+
+ []
+
+
+Overfull \hbox (15.00447pt too wide) in paragraph at lines 86--117
+[][] 
+ []
+
+[2] [3] (./lab3-designdocument.aux) ) 
 Here is how much of TeX's memory you used:
  3288 strings out of 476938
  46358 string characters out of 5824345
- 356855 words of memory out of 5000000
+ 365855 words of memory out of 5000000
  23236 multiletter control sequences out of 15000+600000
  409838 words of font info for 61 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  68i,7n,74p,589b,214s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on lab3-designdocument.pdf (2 pages).
+Output written on lab3-designdocument.pdf (3 pages).
