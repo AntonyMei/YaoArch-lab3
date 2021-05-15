@@ -66,7 +66,7 @@ Results of different replacement policies:
 		\hline
 		No Cache & 100 & 100 & 2083191 & 23508468 \\
 		\hline
-		Random Replacement & 16.47 &  & 1230758 &  \\
+		Random Replacement & 16.47 & 2.44 & 1230758 & 9275269 \\
 		\hline
 		LRU Replacement & 13.86 &  & 1204202 &  \\
 		\hline
@@ -114,12 +114,12 @@ Results of different cache capacities and mapping schemes:
 	\hline
 \end{tabular}
 }
-
+\newpage
 
 \section{Skewed-Associative Cache}
 
 \subsection{Implementation}
-
+In skewed-associative cache, we need separate hash functions for each way. Since we want blocks to be independently and uniformly mapped in each way, we choose a group of universal hash functions for mapping. Specifically, we choose $h_{ab}(k) = (a * k + b) \mod m$, in which $k$ is the block address, $m$ is the number of sets. In order for this group of hash functions to be universal, we need to choose $a$ and $b$ uniformly random for each way. Considering actual performance, we choose $a = 1$ for all ways, and $b$ be a random number for each way. Note that the tag function used for non-skewed cache is not suitable for skewed cache, since multiple blocks with the same tag may be mapped into the same way of the same set. Therefore, we use the whole address field as tag instead.
 
 \subsection{Results}
 
