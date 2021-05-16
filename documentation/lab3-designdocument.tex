@@ -235,7 +235,34 @@ Multiple ripes bugs are found during implementation. Listed as follows:
 \noindent
 \emph{6) Write-back not counted} After the program exits, cache content is not dumped to main memory, resulting in wrong writr-back count. Solution: add a dumping operation at the end of each run. 
 
+\newpage
 \section{Question Answering}
+\noindent
+\emph{1) By extracting useful patterns from large amounts of data, deep learning has produced
+	dramatic breakthroughs in many areas. It is therefore natural to wonder if deep learning
+	could help design better cache replacement policies since the replacement is also a
+	prediction problem. Do you think deep learning, or other machine learning techniques, can
+	be applied to cache replacement? What are the advantages and possible difficulties? If you
+	are interested in this problem, you can further refer to this paper.}
 
+From my perspective, deep learning may be used in cache replacement policies, but this will come with considerable difficulties. Sure enough, deep learning has good performance in pattern recognition and prediction. However, if we want to implement DNN using bare circuit, we may encounter the following problems: 1) DNN works on continuous numbers, while we only have 0/1 in circuits. How to make DNN accomodate to this setting is a big problem. 2) DNN is expensive to implement, we don't have room on chip for such a large module. 3) Cache replacement policy needs fast execution. DNN is rather slow in comparison with traditional algorithms. This requirement also makes impossible the idea of running DNN on a separate AI accelerator. 4) More complicated design is potentially more bug-prone. In lower levels of large systems, we always want to keep things simple. 5) DNN may have difficulty in transferring when the distribution changes. Traditional non-ML algorithms don't have this problem.
+\newline
+
+\noindent
+\emph{2) In the lectures we discussed another optimization called non-blocking cache. Do you think it is useful in your processor? In your opinions how much is the cost and benefit?} 
+
+I don't think it will be of any help in this processor. This processor has only one core and doesn't support OoO execution. This means that even if the cache per se is capable of responding to other accesses while pending on a miss, the processor won't be able to issue one. There is no benefit. Only the hardware cost and latency will increase.
+\newline
+
+\noindent
+\emph{3) In the lectures we also discussed an optimization called software prefetching. For example,
+	the RISC-V ISA can be extended to add a new prefetch offset(rs1) instruction. This
+	instruction fetches the target block to the cache, but does not fill in any register yet.
+	Therefore the actual load instruction executed later can be a cache hit. Obviously the
+	compiler should insert this instruction at proper locations in the program, e.g., several
+	instructions ahead of the actual loads to have enough time to prefetch. Do you think it is
+	useful in your processor? In your opinions how much is the cost and benefit?}
+
+Software prefetching will be quite useful in this processor. If the block needed is prefetched with appropriate timing, memory waiting stalls will be reduced to zero, although we need an extra instruciton for prefetching. The hardware cost is just some simple circuit. However, this will complicate the design of compilers a lot, resulting in much longer compiling time.
 
 \end{document}
