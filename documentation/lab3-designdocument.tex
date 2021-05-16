@@ -189,7 +189,30 @@ In bench\_writehit\_back, we repeated write to two blocks in cache. If we use wr
 	\end{tabular}
 }
 
+\newpage
 \subsection{Writemiss Benchmarks}
+\begin{figure}[h]
+	\centering
+	\subfigure[Allocate] {\includegraphics[width=8cm, height=6cm]{screenshot007}}
+	\subfigure[No Allocate]{\includegraphics[width=8cm, height=6cm]{screenshot008}}
+	\caption{Writemiss Benchmarks}
+	\label{fig:screenshot007}
+\end{figure}
+
+In the first example, write-allocate will have better performance. If we allocate a block for each write, then in each iteration, only the four saves are miss. However, if we don't allocate, all eight operations will be miss. In the second example, no-write-allocate will have a better performance. If we allocate a block when saving 96(t0), cyclic eviction will happen, resulting in all misses. In actual design, if most write will be followed by a read, write-allocate is a good choice, o.w. we should use no-write-allocate.
+\newline
+
+\resizebox{\textwidth}{9mm}{
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		Write Miss Ploicy & bench\_allocate Miss Rate & bench\_noallocate Miss Rate & bench\_allocate Total Cycles & bench\_noallocate Total Cycles \\
+		\hline
+		Write-allocate & 50 & 100 & 61006 & 60006 \\
+		\hline
+		No Write-allocate & 100 & 20.08 & 93006 & 28038 \\
+		\hline
+	\end{tabular}
+}
 
 \section{Ripes Bug Report}
 
