@@ -174,6 +174,8 @@ The first program will have better performance on LRU. In this example, LRU will
 	\label{fig:screenshot006}
 \end{figure}
 
+In bench\_writehit\_back, we repeated write to two blocks in cache. If we use write-back mode, no memory access will actually get to the main memory. However, if we use write-through mode, each and every access will be written back and cause a 10 cycle stall. However, since both modes don't affect cache state, they will have identical miss rate on every program. In this lab's settings, there is no way write-though will have better performance than write-back. This is because write-back only incurs a 10 cycle stall when eviction, while write-through, without help of write buffer, will stall on every access. In acutal implementation, write-through may be faster (with write buffer) and less expensive (no dirty bit).
+\newline
 
 \resizebox{\textwidth}{10mm}{
 	\begin{tabular}{|c|c|c|c|c|}
