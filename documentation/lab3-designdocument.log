@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.16)  16 MAY 2021 11:05
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.16)  16 MAY 2021 11:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -166,7 +166,27 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 Package: algpseudocode 
 
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) (d:/texlive2021/2020/texmf-dist/tex/latex/geometry/geometry.sty
+) (d:/texlive2021/2020/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip56
+\subfigcapskip=\skip57
+\subfigcaptopadj=\dimen150
+\subfigbottomskip=\skip58
+\subfigcapmargin=\dimen151
+\subfiglabelskip=\skip59
+\c@subfigure=\count270
+\c@lofdepth=\count271
+\c@subtable=\count272
+\c@lotdepth=\count273
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(d:/texlive2021/2020/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip60
+\subfig@bottom=\skip61
+)
+(d:/texlive2021/2020/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
 (d:/texlive2021/2020/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -175,31 +195,31 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 (d:/texlive2021/2020/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 ))
-\Gm@cnth=\count270
-\Gm@cntv=\count271
-\c@Gm@tempcnt=\count272
-\Gm@bindingoffset=\dimen150
-\Gm@wd@mp=\dimen151
-\Gm@odd@mp=\dimen152
-\Gm@even@mp=\dimen153
-\Gm@layoutwidth=\dimen154
-\Gm@layoutheight=\dimen155
-\Gm@layouthoffset=\dimen156
-\Gm@layoutvoffset=\dimen157
+\Gm@cnth=\count274
+\Gm@cntv=\count275
+\c@Gm@tempcnt=\count276
+\Gm@bindingoffset=\dimen152
+\Gm@wd@mp=\dimen153
+\Gm@odd@mp=\dimen154
+\Gm@even@mp=\dimen155
+\Gm@layoutwidth=\dimen156
+\Gm@layoutheight=\dimen157
+\Gm@layouthoffset=\dimen158
+\Gm@layoutvoffset=\dimen159
 \Gm@dimlist=\toks26
 )
 (d:/texlive2021/2020/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2021-03-02 L3 backend support: XeTeX
 
 (|extractbb --version)
-\c__kernel_sys_dvipdfmx_version_int=\count273
-\l__color_backend_stack_int=\count274
-\g__color_backend_stack_int=\count275
-\g__graphics_track_int=\count276
+\c__kernel_sys_dvipdfmx_version_int=\count277
+\l__color_backend_stack_int=\count278
+\g__color_backend_stack_int=\count279
+\g__graphics_track_int=\count280
 \l__pdf_internal_box=\box51
-\g__pdf_backend_object_int=\count277
-\g__pdf_backend_annotation_int=\count278
-\g__pdf_backend_link_int=\count279
+\g__pdf_backend_object_int=\count281
+\g__pdf_backend_annotation_int=\count282
+\g__pdf_backend_link_int=\count283
 )
 
 LaTeX Warning: Unused global option(s):
@@ -208,28 +228,28 @@ LaTeX Warning: Unused global option(s):
 (./lab3-designdocument.aux)
 \openout1 = `lab3-designdocument.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
-4.
+5.
 
 (d:/texlive2021/2020/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -265,12 +285,12 @@ LaTeX Font Info:    ... okay on input line 24.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
 
 (d:/texlive2021/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
 
 
 (d:/texlive2021/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -286,38 +306,55 @@ File: screenshot002.png Graphic file (type bmp)
 File: screenshot003.png Graphic file (type bmp)
 <screenshot003.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--61
+Underfull \hbox (badness 10000) in paragraph at lines 60--62
 
  []
 
 
-Overfull \hbox (15.0178pt too wide) in paragraph at lines 62--81
+Overfull \hbox (15.0178pt too wide) in paragraph at lines 63--82
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 62--81
+Underfull \hbox (badness 10000) in paragraph at lines 63--82
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--85
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
 
  []
 
 
-Overfull \hbox (15.00447pt too wide) in paragraph at lines 86--117
+Overfull \hbox (15.00447pt too wide) in paragraph at lines 87--118
 [][] 
  []
 
-[2] [3] (./lab3-designdocument.aux) ) 
+[2]
+File: screenshot004.png Graphic file (type bmp)
+<screenshot004.png>
+File: screenshot005.png Graphic file (type bmp)
+<screenshot005.png>
+ [3]
+Overfull \hbox (15.02275pt too wide) in paragraph at lines 156--167
+[][] 
+ []
+
+File: screenshot006.png Graphic file (type bmp)
+<screenshot006.png>
+
+Overfull \hbox (14.99338pt too wide) in paragraph at lines 178--189
+[][] 
+ []
+
+[4] (./lab3-designdocument.aux) ) 
 Here is how much of TeX's memory you used:
- 3288 strings out of 476938
- 46358 string characters out of 5824345
- 365855 words of memory out of 5000000
- 23236 multiletter control sequences out of 15000+600000
- 409838 words of font info for 61 fonts, out of 8000000 for 9000
+ 3490 strings out of 476938
+ 49392 string characters out of 5824345
+ 367997 words of memory out of 5000000
+ 23430 multiletter control sequences out of 15000+600000
+ 409846 words of font info for 62 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 68i,7n,74p,813b,214s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,7n,74p,840b,255s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on lab3-designdocument.pdf (3 pages).
+Output written on lab3-designdocument.pdf (4 pages).

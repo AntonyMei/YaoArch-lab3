@@ -10,6 +10,7 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{amsmath}
+\usepackage{subfigure}
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
 \onehalfspacing
@@ -31,7 +32,7 @@ In LRU-LIP, we set counter of the newly inserted block as the number of valid wa
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{screenshot001}
-	\caption{LRU-LIP hardware cost}
+	\caption{LRU-LIP Hardware Cost}
 	\label{fig:screenshot001}
 \end{figure}
 
@@ -41,7 +42,7 @@ In DIP, we use the first set (SET0) as MIP sample and the second set (SET1) as L
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{screenshot002}
-	\caption{DIP hardware cost}
+	\caption{DIP Hardware Cost}
 	\label{fig:screenshot002}
 \end{figure}
 \newpage
@@ -51,7 +52,7 @@ In RRIP, we use counter field of each way to store its RRI. It has field width o
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{screenshot003}
-	\caption{RRIP hardware cost}
+	\caption{RRIP Hardware Cost}
 	\label{fig:screenshot003}
 \end{figure}
 
@@ -127,20 +128,65 @@ In skewed-associative cache, we need separate hash functions for each way. Since
 	\hline
 	Capacity and Mapping & Benchmark 1 Miss Rate & Benchmark 2 Miss Rate & Benchmark 1 Total Cycles & Benchmark 2 Total Cycles \\
 	\hline
-	16-entry 4-way associative &  & 7.52 &  & 10016283 \\
+	16-entry 4-way associative & 28.74 & 7.52 & 1356019 & 10016283 \\
 	\hline
-	16-entry 4-way skewed-associative &  & 8.92 &  & 10220843 \\
+	16-entry 4-way skewed-associative & 28.53 & 8.92 & 1353896 & 10220843 \\
 	\hline
-	32-entry 4-way associative &  & 1.99 &  & 9209763 \\
+	32-entry 4-way associative & 13.86 & 1.99 & 1204202 & 9209763 \\
 	\hline
-	32-entry 4-way skewed-associative &  & 2.02 &  & 9214083 \\
+	32-entry 4-way skewed-associative & 13.98 & 2.02 & 1205348 & 9214083 \\
 	\hline
 \end{tabular}
 }
 
 \section{Benchmarks}
+
 \subsection{Replacement Benchmarks}
+\begin{figure}[h]
+	\centering
+	\subfigure[LRU] {\includegraphics[width=8cm, height=6cm]{screenshot004}}
+	\subfigure[LRU-LIP]{\includegraphics[width=8cm, height=6cm]{screenshot005}}
+	\caption{Replacement Benchmarks}
+	\label{fig:screenshot004}
+\end{figure}
+
+The first program will have better performance on LRU. In this example, LRU will keep a[96] and a[128] in cache, while LRU-LIP will evict them alternately (note that all five elements are hashed into the same set). Therefore, LRU very low miss rate while LRU-LIP have 100\% miss rate. In the second example, LRU-LIP has better performance. In this example, LRU will cyclically evict blocks from cache, causing all misses. LRU, on the contrary, only incurs two misses each iteration. Therefore, it has much lower miss rate. In actual design of a processor, we may prefer LRU if the programs running on top of it has very good temperal locality, i.e. elements visited will soon be revisited again. If considerable amounts of memory accesses are ramdom access that won't repeat itself, LRU-LIP may be a better choice.
+
+\newpage
+\resizebox{\textwidth}{10mm}{
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		Replacement Policy & bench\_lru Miss Rate & bench\_lrulip Miss Rate & bench\_lru Total Cycles & bench\_lrulip Total Cycles \\
+		\hline
+		LRU & 0.25 & 100 & 10055 & 59006 \\
+		\hline
+		LRU-LIP & 100 & 40.06 & 26039 & 35030 \\
+		\hline
+	\end{tabular}
+}
+
+
 \subsection{Writehit Benchmarks}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm, height=6cm]{screenshot006}
+	\caption{Writehit Benchmarks: Write-back}
+	\label{fig:screenshot006}
+\end{figure}
+
+
+\resizebox{\textwidth}{10mm}{
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		Write Hit Policy & bench\_through Miss Rate & bench\_back Miss Rate & bench\_through Total Cycles & bench\_back Total Cycles \\
+		\hline
+		Write-back & N/A & 0.25 & N/A & 10055 \\
+		\hline
+		Write-through & N/A & 0.25 & N/A & 26039 \\
+		\hline
+	\end{tabular}
+}
+
 \subsection{Writemiss Benchmarks}
 
 \section{Ripes Bug Report}
