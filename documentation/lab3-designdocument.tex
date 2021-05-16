@@ -215,9 +215,27 @@ In the first example, write-allocate will have better performance. If we allocat
 }
 
 \section{Ripes Bug Report}
+Multiple ripes bugs are found during implementation. Listed as follows:
+
+\noindent
+\emph{1) Tag comparison failure } If we use skewed associative cache, blocks with same tag may be mapped into the same entry, no mechanism for detecting this. Solution: replace ALL tag comparison with address comparison.
+
+\noindent
+\emph{2) Cache bypassing } Cache is not used as a source of data. Therefore, if we randomly return data and report all accesses as hits, we can achieve low miss rate. Solution: no simple solution, suggest total rewrite of Ripes cache simulator.
+
+\noindent
+\emph{3) Revert failure } Revert function is only called upon reversion after a cache hit. Solution: modify caller.
+
+\noindent
+\emph{4) Wrong instra count } Different cache policies will have different instruction count on the same program. Solution: stall mechanism should be modified to support accurate instruction count.
+
+\noindent
+\emph{5) Cache statistics not available} Under rare circumstances (e.g. load after save etc.), hit and miss counter is dark. Solution: no simple solution, suggest a thorough check of cache simulator.
+
+\noindent
+\emph{6) Write-back not counted} After the program exits, cache content is not dumped to main memory, resulting in wrong writr-back count. Solution: add a dumping operation at the end of each run. 
 
 \section{Question Answering}
-
 
 
 \end{document}
